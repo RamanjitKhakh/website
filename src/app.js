@@ -20,9 +20,9 @@ var App = React.createClass({
         'help'  : this.showHelp,
         'cat'   : this.catFile,
         'source': this.openLink('https://github.com/prakhar1989/react-term/blob/master/src/app.js'),
-        'github': this.openLink('http://github.com/prakhar1989'),
+        'github': this.openLink('http://github.com/ramanjitkhakh'),
         'blog'  : this.openLink('http://prakhar.me'),
-        'resume': this.openLink('https://github.com/prakhar1989/cv/blob/master/Resume.pdf')
+        'resume': this.openLink('http://google.com')
       }
     });
   },
@@ -30,8 +30,8 @@ var App = React.createClass({
       this.addHistory("README.md");
   },
   showWelcomeMsg: function() {
-      this.addHistory("Welcome!");
-      this.addHistory("Type `help` to see what all commands are available");
+      this.addHistory("Welcome! To my homepage");
+      this.addHistory("Type `help` to view all possible commands");
   },
   catFile: function(arg) {
       if (arg === "README.md") {
