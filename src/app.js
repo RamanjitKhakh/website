@@ -1,11 +1,15 @@
 var React = require('react');
+var weather = require('weather');
+
 
 var App = React.createClass({
   getInitialState: function() {
       return {
         commands: {},
         history: [],
-        prompt: '$ '
+        prompt: '$ ',
+        promptHistory: [],
+        index: 0
       }
   },
   clearHistory: function() {
@@ -22,7 +26,8 @@ var App = React.createClass({
         'source': this.openLink('https://github.com/prakhar1989/react-term/blob/master/src/app.js'),
         'github': this.openLink('http://github.com/ramanjitkhakh'),
         'blog'  : this.openLink('http://prakhar.me'),
-        'resume': this.openLink('http://google.com')
+        'resume': this.openLink('http://google.com'),
+        'weather': this.weather
       }
     });
   },
@@ -32,6 +37,18 @@ var App = React.createClass({
   showWelcomeMsg: function() {
       this.addHistory("Welcome! To my homepage");
       this.addHistory("Type `help` to view all possible commands");
+  },
+  weather: function(arg){
+    weather({location: 'Melbourne',
+            appid: 'dj0yJmk9WExFS1dBajhybmZ4JmQ9WVdrOWNVaHpORVZoTkcwbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1lZA--'}, function(data) {
+    //this.addHistory(data);
+    console.log(data);
+    if (data.temp > 30) {
+
+      console.log("Damn it's hot!");
+    }
+    });
+
   },
   catFile: function(arg) {
       if (arg === "README.md") {
@@ -76,6 +93,17 @@ var App = React.createClass({
   handleInput: function(e) {
       if (e.key === "Enter") {
           var input_text = this.refs.term.getDOMNode().value;
+
+          var promptHistory = this.state.promptHistory;
+          var index = this.state.index;
+          promptHistory.push(input_text);
+          index = promptHistory.length-1;
+          this.setState({
+            'promptHistory' : promptHistory,
+            'index' : index
+          });
+          
+
           var input_array = input_text.split(' ');
           var input = input_array[0];
           var arg = input_array[1];
@@ -89,6 +117,33 @@ var App = React.createClass({
               command(arg);
           }
           this.clearInput();
+      } else if (e.key === "ArrowUp"){
+        var promptHistory = this.state.promptHistory;
+        var index = this.state.index;
+        if( !(promptHistory.length == 0) ){
+          this.refs.term.getDOMNode().value = promptHistory[index];
+        }
+        if(index <= 0 ){
+          index = 0;
+        }else{
+          index--;
+        }
+        this.setState({
+          'index' : index
+        });
+
+      } else if (e.key === 'ArrowDown'){
+        var promptHistory = this.state.promptHistory;
+        var index = this.state.index;
+        if (index < promptHistory.length-1){
+          index++;
+        }
+        if( !(promptHistory.length == 0) ){
+          this.refs.term.getDOMNode().value = promptHistory[index];
+        }
+        this.setState({
+          'index' : index
+        });
       }
   },
   clearInput: function() {
@@ -114,7 +169,7 @@ var App = React.createClass({
           {output}
           <p>
             <span className="prompt">{this.state.prompt}</span> 
-            <input type="text" onKeyPress={this.handleInput} ref="term" />
+            <input type="text" onKeyDown={this.handleInput} ref="term" />
           </p>
         </div>
       )
