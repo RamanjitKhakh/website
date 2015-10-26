@@ -8,7 +8,8 @@
     "watch": "watchify -t reactify ./src/app.js -o ./build/main.min.js -v",
     "dist": "npm run remove-dist && npm run build-standalone",
     "remove-dist": "rm build/*.js",
-    "build-standalone": "NODE_ENV=production browserify -t reactify ./src/app.js | uglifyjs -mc > build/main.min.js"
+    "build-standalone": "NODE_ENV=production browserify -t reactify ./src/app.js | uglifyjs -mc > build/main.min.js",
+    "server-start": "(./node_modules/webpack-dev-server/bin/webpack-dev-server.js --quiet --hot --host 127.0.0.1 --port 2999  ) & (./node_modules/nodemon/bin/nodemon.js ./src/server.js)"
   },
   "author": "",
   "license": "MIT",
@@ -17,6 +18,8 @@
     "browserify": "^9.0.3",
     "react": "^0.13.1",
     "reactify": "^1.1.0",
+    "socket.io": "^1.3.7",
+    "socket.io-client": "^1.3.7",
     "uglify-js": "^2.4.20",
     "underscore": "^1.8.3",
     "watchify": "^3.1.0",

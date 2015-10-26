@@ -1,7 +1,8 @@
 var React = require('react');
 var weather = require('weather');
+var request = require('request');
 
-
+ 
 var App = React.createClass({
   getInitialState: function() {
       return {
@@ -9,7 +10,10 @@ var App = React.createClass({
         history: [],
         prompt: '$ ',
         promptHistory: [],
-        index: 0
+        index: 0,
+        temp: '',
+        cond: '',
+        location: ''
       }
   },
   clearHistory: function() {
@@ -39,16 +43,12 @@ var App = React.createClass({
       this.addHistory("Type `help` to view all possible commands");
   },
   weather: function(arg){
-    weather({location: 'Melbourne',
-            appid: 'dj0yJmk9WExFS1dBajhybmZ4JmQ9WVdrOWNVaHpORVZoTkcwbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD1lZA--'}, function(data) {
-    //this.addHistory(data);
-    console.log(data);
-    if (data.temp > 30) {
 
-      console.log("Damn it's hot!");
-    }
-    });
-
+    
+    this.addHistory(this.state.location);
+    this.addHistory('current temp: ' + this.state.temp + '°F');
+    this.addHistory('It is ' + this.state.cond + '.');
+  
   },
   catFile: function(arg) {
       if (arg === "README.md") {
@@ -56,7 +56,7 @@ var App = React.createClass({
           this.addHistory("A couple of days back, I got an email from Columbia (the university that I'm stated to join) informing me that my new email ID and other student IT services were ready. Hosting my own webpage on a university's domain had long been a wish of mine, so as soon as I learnt about having some server space on the university's server I got excited wanted to put something interesting. Since I already have " +
                           "a boring about me page, I went " +
                           "with something different and built a simple terminal emulator in React!");
-          this.addHistory("type `source` to view the source code");
+          
       } else {
           this.addHistory("cat: " +  arg + ": No such file or directory");
       }
@@ -83,6 +83,25 @@ var App = React.createClass({
       this.registerCommands();
       this.showWelcomeMsg();
       term.focus();
+      var options = {
+      url: 'https://query.yahooapis.com/v1/public/yql?q=select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\'19122\')&format=json',
+      headers: {
+        'User-Agent': 'request'
+      }
+    };
+    
+    
+    request(options, (error, response, body) => {
+      if (!error && response.statusCode == 200) {
+        var content = JSON.parse(body);
+        console.log(content.query.results.channel.item.condition);
+        this.state.temp = content.query.results.channel.item.condition.temp; 
+        this.state.cond = content.query.results.channel.item.condition.text;
+        this.state.location = content.query.results.channel.item.title;
+        //i need this -> content.query.results.channel.item;
+      }
+    })
+
   },
   componentDidUpdate: function() {
       var el = React.findDOMNode(this);
