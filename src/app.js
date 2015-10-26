@@ -32,9 +32,17 @@ var App = React.createClass({
         'blog'  : this.openLink('http://reddit.com'),
         'resume': this.openLink('http://google.com'),
         'weather': this.weather,
-        'ayy': this.ayylmao
+        'ayy': this.ayylmao,
+        'contact': this.contactMe
       }
     });
+  },
+  contactMe: function() {
+
+    this.addHistory("Wanna contact me?");
+    this.addHistory("Email: person@temple.edu (promise it's a real email)");
+    this.addHistory("Github: ramanjitkhakh (type command \'github\' to go to my profile)");
+    this.addHistory("Website: press f5");
   },
   listFiles: function() {
       this.addHistory("README.md");
@@ -44,7 +52,6 @@ var App = React.createClass({
       this.addHistory("Type `help` to view all possible commands");
   },
   ayylmao: function() {
-    console.log('runiing');
     document.getElementById('ayy').style.bottom = 0; 
   },
   weather: function(arg){   
@@ -84,6 +91,7 @@ var App = React.createClass({
       this.addHistory("ls - list files");
       this.addHistory("resume - view my resume");
       this.addHistory("weather - view Philadelphia weather");
+      this.addHistory("contact - list ways to contact me");
   },
   componentDidMount: function() {
       var term = this.refs.term.getDOMNode();
