@@ -27,9 +27,9 @@ var App = React.createClass({
         'intro' : this.showWelcomeMsg,
         'help'  : this.showHelp,
         'cat'   : this.catFile,
-        'source': this.openLink('https://github.com/prakhar1989/react-term/blob/master/src/app.js'),
+        'source': this.openLink('https://google.com'),
         'github': this.openLink('http://github.com/ramanjitkhakh'),
-        'blog'  : this.openLink('http://prakhar.me'),
+        'blog'  : this.openLink('http://reddit.com'),
         'resume': this.openLink('http://google.com'),
         'weather': this.weather,
         'ayy': this.ayylmao
@@ -83,6 +83,7 @@ var App = React.createClass({
       this.addHistory("cat - print contents of a file");
       this.addHistory("ls - list files");
       this.addHistory("resume - view my resume");
+      this.addHistory("weather - view Philadelphia weather");
   },
   componentDidMount: function() {
       var term = this.refs.term.getDOMNode();
