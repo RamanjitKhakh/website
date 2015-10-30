@@ -30,7 +30,7 @@ var App = React.createClass({
         'source': this.openLink('https://google.com'),
         'github': this.openLink('http://github.com/ramanjitkhakh'),
         'blog'  : this.openLink('http://reddit.com'),
-        'resume': this.openLink('http://google.com'),
+        'resume': this.openLink('https://github.com/RamanjitKhakh/ramanjitkhakh.github.io/blob/master/Ramanjit%20Khakh%20Resume.pdf'),
         'weather': this.weather,
         'ayy': this.ayylmao,
         'contact': this.contactMe
