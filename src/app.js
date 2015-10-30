@@ -128,30 +128,31 @@ var App = React.createClass({
   handleInput: function(e) {
       if (e.key === "Enter") {
           var input_text = this.refs.term.getDOMNode().value;
+          if(input_text.trim() != ''){
+            var promptHistory = this.state.promptHistory;
+            var index = this.state.index;
+            promptHistory.push(input_text);
+            index = promptHistory.length-1;
+            this.setState({
+              'promptHistory' : promptHistory,
+              'index' : index
+            });
+            
 
-          var promptHistory = this.state.promptHistory;
-          var index = this.state.index;
-          promptHistory.push(input_text);
-          index = promptHistory.length-1;
-          this.setState({
-            'promptHistory' : promptHistory,
-            'index' : index
-          });
-          
+            var input_array = input_text.split(' ');
+            var input = input_array[0];
+            var arg = input_array[1];
+            var command = this.state.commands[input];
 
-          var input_array = input_text.split(' ');
-          var input = input_array[0];
-          var arg = input_array[1];
-          var command = this.state.commands[input];
+            this.addHistory(this.state.prompt + " " + input_text);
 
-          this.addHistory(this.state.prompt + " " + input_text);
-
-          if (command === undefined) {
-              this.addHistory("sh: command not found: " + input);
-          } else {
-              command(arg);
+            if (command === undefined) {
+                this.addHistory("sh: command not found: " + input);
+            } else {
+                command(arg);
+            }
+            this.clearInput();
           }
-          this.clearInput();
       } else if (e.key === "ArrowUp"){
         var promptHistory = this.state.promptHistory;
         var index = this.state.index;
