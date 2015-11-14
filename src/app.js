@@ -27,9 +27,7 @@ var App = React.createClass({
         'intro' : this.showWelcomeMsg,
         'help'  : this.showHelp,
         'cat'   : this.catFile,
-        'source': this.openLink('https://google.com'),
         'github': this.openLink('http://github.com/ramanjitkhakh'),
-        'blog'  : this.openLink('http://reddit.com'),
         'resume': this.openLink('https://github.com/RamanjitKhakh/ramanjitkhakh.github.io/blob/master/Ramanjit%20Khakh%20Resume.pdf'),
         'weather': this.weather,
         'ayy': this.ayylmao,
@@ -41,6 +39,7 @@ var App = React.createClass({
 
     this.addHistory("Wanna contact me?");
     this.addHistory("Email: person@temple.edu (promise it's a real email)");
+    this.addHistory("Alternative Email: ramanjit456@yahoo.co.in");
     this.addHistory("Github: ramanjitkhakh (type command \'github\' to go to my profile)");
     this.addHistory("Website: press f5");
   },
@@ -83,7 +82,6 @@ var App = React.createClass({
   showHelp: function() {
       this.addHistory("help - this help text");
       this.addHistory("github - view my github profile");
-      this.addHistory("source - browse the code for this page");
       this.addHistory("intro - print intro message");
       this.addHistory("blog - read some stuff that I've written");
       this.addHistory("clear - clear screen");
