@@ -108,7 +108,6 @@ var App = React.createClass({
     request(options, (error, response, body) => {
       if (!error && response.statusCode == 200) {
         var content = JSON.parse(body);
-        console.log(content.query.results.channel.item.condition);
         this.state.temp = content.query.results.channel.item.condition.temp; 
         this.state.cond = content.query.results.channel.item.condition.text;
         this.state.location = content.query.results.channel.item.title;
