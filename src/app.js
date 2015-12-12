@@ -83,7 +83,6 @@ var App = React.createClass({
       this.addHistory("help - this help text");
       this.addHistory("github - view my github profile");
       this.addHistory("intro - print intro message");
-      this.addHistory("blog - read some stuff that I've written");
       this.addHistory("clear - clear screen");
       this.addHistory("cat - print contents of a file");
       this.addHistory("ls - list files");
