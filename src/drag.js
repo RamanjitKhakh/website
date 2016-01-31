@@ -12,8 +12,8 @@ var func = function() {
 		var move = function(event){
 			//console.log(event.type);
 			//console.log(event.currentTarget);
-			var originLeft = imageElement.getBoundingClientRect().left
-			var originTop = imageElement.getBoundingClientRect().top;
+			var originLeft = self.element.getBoundingClientRect().left
+			var originTop = self.element.getBoundingClientRect().top;
 
 			var mouseDownX = event.clientX;
 			var mouseDownY = event.clientY;
@@ -25,7 +25,7 @@ var func = function() {
 				self.element.style.left = (originLeft + event.clientX - mouseDownX) + "px";
 				self.element.style.top = originTop + event.clientY - mouseDownY + "px";
 				event.stopPropagation();
-				console.log(self.element.style.width)
+				console.log(self.element)
 			}
 
 			function dropMe(event){
@@ -40,10 +40,12 @@ var func = function() {
 			
 		};
 
+		self.element = document.getElementById('terminal');
 		this.element.addEventListener('mousedown', move, false);
+		
 	};
 
-	var imageElement = document.getElementById('terminal');
+	var imageElement = document.getElementById('bar');
 	var dragElem = new Draggable(imageElement);
 };
 
