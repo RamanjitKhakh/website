@@ -18,13 +18,14 @@ var func = function() {
 			var mouseDownX = event.clientX;
 			var mouseDownY = event.clientY;
 
+			var initialWidth = document.getElementById('terminal').offsetWidth;
 			function dragMe(event){
-				
+				self.element.style.width = initialWidth + 'px';
 				self.element.style.position = 'absolute';
 				self.element.style.left = (originLeft + event.clientX - mouseDownX) + "px";
 				self.element.style.top = originTop + event.clientY - mouseDownY + "px";
 				event.stopPropagation();
-				
+				console.log(self.element.style.width)
 			}
 
 			function dropMe(event){
