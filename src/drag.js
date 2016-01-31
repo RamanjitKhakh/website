@@ -25,7 +25,7 @@ var func = function() {
 				self.element.style.left = (originLeft + event.clientX - mouseDownX) + "px";
 				self.element.style.top = originTop + event.clientY - mouseDownY + "px";
 				event.stopPropagation();
-				console.log(self.element)
+				
 			}
 
 			function dropMe(event){
