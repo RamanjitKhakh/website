@@ -8,7 +8,7 @@
     "watch": "watchify -t reactify ./src/app.js -o ./build/main.min.js -v",
     "dist": "npm run remove-dist && npm run build-standalone",
     "remove-dist": "rm build/*.js",
-    "build-standalone": "NODE_ENV=production browserify -t reactify ./src/app.js | uglifyjs -mc > build/main.min.js",
+    "build-standalone": "NODE_ENV=production browserify -t reactify ./src/app.js ./src/drag.js > build/main.min.js",
     "server-start": "(./node_modules/webpack-dev-server/bin/webpack-dev-server.js --quiet --hot --host 127.0.0.1 --port 2999  ) & (./node_modules/nodemon/bin/nodemon.js ./src/server.js)"
   },
   "author": "",

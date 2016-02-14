@@ -40,7 +40,7 @@ var func = function() {
 			
 		};
 
-		self.element = document.getElementById('terminal');
+		//self.element = document.getElementById('terminal');
 		this.element.addEventListener('mousedown', move, false);
 		
 	};
