@@ -12,6 +12,7 @@ var func = function() {
 		var move = function(event){
 			//console.log(event.type);
 			//console.log(event.currentTarget);
+			self.element = document.getElementById('terminal');
 			var originLeft = self.element.getBoundingClientRect().left
 			var originTop = self.element.getBoundingClientRect().top;
 
@@ -40,7 +41,7 @@ var func = function() {
 			
 		};
 
-		//self.element = document.getElementById('terminal');
+		
 		this.element.addEventListener('mousedown', move, false);
 		
 	};
