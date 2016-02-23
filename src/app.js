@@ -31,10 +31,44 @@ var App = React.createClass({
         'resume': this.openLink('https://github.com/RamanjitKhakh/ramanjitkhakh.github.io/blob/master/Ramanjit%20Khakh%20Resume.pdf'),
         'weather': this.weather,
         'ayy': this.ayylmao,
-        'contact': this.contactMe
+        'contact': this.contactMe,
+        'cena': this.cena
       }
     });
   },
+  cena: function(){
+
+    console.log(document.getElementById('terminal').style.left);
+
+    document.getElementById('theCena').style.left = document.getElementById('terminal').style.left;    
+    document.getElementById('theCena').style.bottom = '200px';
+
+    
+
+    var context = new AudioContext();
+      
+    var source
+    
+    source = context.createBufferSource();
+    var request = new XMLHttpRequest();
+
+    request.open('GET', './cena.mp3', true);
+    request.responseType = 'arraybuffer';
+    request.onload = function(){
+      var AudioDate = request.response;
+      context.decodeAudioData(AudioDate, function(b){
+        source.buffer = b;
+        source.connect(context.destination);// to speakers
+        source.loop = true;
+      }, function(e){"error! with data " + e.err});
+    }
+
+    request.send();
+    source.start(0);
+
+
+  }
+  ,
   contactMe: function() {
 
     this.addHistory("Wanna contact me?");
