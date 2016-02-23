@@ -13,7 +13,8 @@ var App = React.createClass({
         index: 0,
         temp: '',
         cond: '',
-        location: ''
+        location: '',
+        cenaRun: false
       }
   },
   clearHistory: function() {
@@ -37,35 +38,43 @@ var App = React.createClass({
     });
   },
   cena: function(){
+    if(this.state.cenaRun === false){
+      this.setState({cenaRun: true});
+      console.log(document.getElementById('terminal').style.left);
+      //370 + 
+      var terminalLeft = document.getElementById('terminal').style.left;
+      if(terminalLeft === ''){
+        terminalLeft = 390;
+      }else{
+        terminalLeft = parseInt(terminalLeft.substring(0, terminalLeft.length-2));
+        terminalLeft += 390;
+      }
+      document.getElementById('theCena').style.left =  terminalLeft + 'px';    
+      document.getElementById('theCena').style.bottom = '200px';
 
-    console.log(document.getElementById('terminal').style.left);
-
-    document.getElementById('theCena').style.left = document.getElementById('terminal').style.left;    
-    document.getElementById('theCena').style.bottom = '200px';
-
-    
-
-    var context = new AudioContext();
       
-    var source
-    
-    source = context.createBufferSource();
-    var request = new XMLHttpRequest();
 
-    request.open('GET', './cena.mp3', true);
-    request.responseType = 'arraybuffer';
-    request.onload = function(){
-      var AudioDate = request.response;
-      context.decodeAudioData(AudioDate, function(b){
-        source.buffer = b;
-        source.connect(context.destination);// to speakers
-        source.loop = true;
-      }, function(e){"error! with data " + e.err});
+      var context = new AudioContext();
+        
+      var source
+      
+      source = context.createBufferSource();
+      var request = new XMLHttpRequest();
+
+      request.open('GET', './src/cena.mp3', true);
+      request.responseType = 'arraybuffer';
+      request.onload = function(){
+        var AudioDate = request.response;
+        context.decodeAudioData(AudioDate, function(b){
+          source.buffer = b;
+          source.connect(context.destination);// to speakers
+          source.loop = true;
+        }, function(e){"error! with data " + e});
+      }
+
+      request.send();
+      //source.start(0);
     }
-
-    request.send();
-    source.start(0);
-
 
   }
   ,
