@@ -54,7 +54,7 @@ var App = React.createClass({
         terminalLeft += marginOffset;
       }
       document.getElementById('theCena').style.left =  terminalLeft + 'px';    
-      document.getElementById('theCena').style.bottom = '200px';
+      document.getElementById('theCena').style.bottom = (window.innerHeight - document.getElementById('terminal').offsetTop - 260) + 'px';
 
       
 
@@ -77,7 +77,7 @@ var App = React.createClass({
       }
 
       request.send();
-      //source.start(0);
+      source.start(0);
     }
 
   }
