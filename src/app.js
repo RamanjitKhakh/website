@@ -38,6 +38,12 @@ var App = React.createClass({
     });
   },
   cena: function(){
+    var newHeight = '';
+    document.getElementById('theCena').addEventListener('transitionend',function(e){
+      console.log('CENA is finished!!');
+      document.getElementById('theCena').style.bottom = '-' + newHeight;
+      
+    });
     if(this.state.cenaRun === false){
       this.setState({cenaRun: true});
       console.log(document.getElementById('terminal').style.left);
@@ -59,6 +65,7 @@ var App = React.createClass({
         terminalLeft += marginOffset;
       }
       document.getElementById('theCena').style.left =  terminalLeft + 'px';    
+      newHeight = (window.innerHeight - document.getElementById('terminal').offsetTop - 260) + 'px'; 
       document.getElementById('theCena').style.bottom = (window.innerHeight - document.getElementById('terminal').offsetTop - 260) + 'px';
 
       
