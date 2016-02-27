@@ -39,10 +39,29 @@ var App = React.createClass({
   },
   cena: function(){
     var newHeight = '';
+
     document.getElementById('theCena').addEventListener('transitionend',function(e){
       console.log('CENA is finished!!');
+      var initialWidth = document.getElementById('terminal').offsetWidth;
+      var initialHeight = document.getElementById('terminal').offsetHeight;
       document.getElementById('theCena').style.bottom = '-' + newHeight;
+      document.getElementById('terminal').style.transition = 'all 9s';
+      document.getElementById('terminal').style.position = 'absolute';
+      document.getElementById('terminal').offsetWidth = initialWidth + 'px';
+      var adjustHeight = parseInt(newHeight.substring(0, newHeight.length-2)) + 400 + 'px';
+      document.getElementById('terminal').style.top =  adjustHeight ;
       
+      console.log(adjustHeight);
+      console.log(newHeight)
+      console.log('dinex');
+
+      document.getElementById('terminal').addEventListener('transitionend', function(){ 
+        console.log('terminal end transition');
+        document.getElementById('terminal').style.transition = 'all 0s';
+      });
+      
+      
+
     });
     if(this.state.cenaRun === false){
       this.setState({cenaRun: true});
