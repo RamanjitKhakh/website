@@ -156,7 +156,11 @@ var App = React.createClass({
     };
     
     
-    request(options, (error, response, body) => {
+    request(options, this.weatherRequest)
+
+  },
+
+  weatherRequest: function(error, response, body){
       if (!error && response.statusCode == 200) {
         var content = JSON.parse(body);
         this.state.temp = content.query.results.channel.item.condition.temp; 
@@ -164,8 +168,6 @@ var App = React.createClass({
         this.state.location = content.query.results.channel.item.title;
         //i need this -> content.query.results.channel.item;
       }
-    })
-
   },
   componentDidUpdate: function() {
       var el = React.findDOMNode(this);
