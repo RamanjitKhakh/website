@@ -49,7 +49,15 @@ var App = React.createClass({
         
         document.getElementById('theCena').style.bottom = '-' + window.innerHeight + 'px';
         document.getElementById('terminal').style.transition = 'all 5s';
+        
+        var initialWidth = document.getElementById('terminal').offsetWidth;
+        console.log('initial width is ' +  initialWidth);
+        document.getElementById('terminal').style.width = initialWidth + 'px';
+        
+
         document.getElementById('terminal').style.position = 'absolute';
+        
+
         document.getElementById('terminal').offsetWidth = initialWidth + 'px';
         var adjustHeight = parseInt(newHeight.substring(0, newHeight.length-2));
         
@@ -68,6 +76,10 @@ var App = React.createClass({
       this.setState({cenaRun: true});
       console.log(document.getElementById('terminal').style.left);
       //370 + 
+      var initialTop = document.getElementById('terminal').offsetTop + 'px';
+      document.getElementById('terminal').style.top = initialTop;
+
+      
       var terminalLeft = document.getElementById('terminal').style.left;
       //var marginOffset = window.getComputedStyle(document.getElementById('main')).marginLeft
       //marginOffset = parseInt(marginOffset.substring(0, marginOffset.length-2));
