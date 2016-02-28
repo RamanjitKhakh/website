@@ -43,16 +43,17 @@ var App = React.createClass({
     document.getElementById('theCena').addEventListener('transitionend',function(e){
       if(eventStart){
         eventStart = false;
-        console.log('CENA is finished!!');
+        
         var initialWidth = document.getElementById('terminal').offsetWidth;
         var initialHeight = document.getElementById('terminal').offsetHeight;
-        document.getElementById('theCena').style.bottom = '-' + newHeight;
-        document.getElementById('terminal').style.transition = 'all 7s';
+        
+        document.getElementById('theCena').style.bottom = '-' + window.innerHeight + 'px';
+        document.getElementById('terminal').style.transition = 'all 5s';
         document.getElementById('terminal').style.position = 'absolute';
         document.getElementById('terminal').offsetWidth = initialWidth + 'px';
         var adjustHeight = parseInt(newHeight.substring(0, newHeight.length-2));
         
-        document.getElementById('terminal').style.top =  document.getElementById('terminal').style.top = window.innerHeight - 30 + 'px';
+        document.getElementById('terminal').style.top =  document.getElementById('terminal').style.top = window.innerHeight - 40 + 'px';
         
         
         document.getElementById('terminal').addEventListener('transitionend', function(){ 
@@ -85,7 +86,7 @@ var App = React.createClass({
       }
       document.getElementById('theCena').style.left =  terminalLeft + 'px';    
       newHeight = (window.innerHeight - document.getElementById('terminal').offsetTop - 260) + 'px'; 
-      document.getElementById('theCena').style.bottom = (window.innerHeight - document.getElementById('terminal').offsetTop - 260) + 'px';
+      document.getElementById('theCena').style.bottom = (window.innerHeight - document.getElementById('terminal').offsetTop - 270) + 'px';
 
       
 
