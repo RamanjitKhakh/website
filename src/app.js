@@ -59,7 +59,8 @@ var App = React.createClass({
     }.bind(this),3500)
     setTimeout(function(){
       document.getElementsByTagName('input')[0].disabled = false;
-    document.getElementsByClassName('prompt')[0].textContent = '$ ';
+      document.getElementsByClassName('prompt')[0].textContent = '$ ';
+      document.getElementsByTagName('input')[0].focus();
     }.bind(this),3900)
   },
   cena: function(){
