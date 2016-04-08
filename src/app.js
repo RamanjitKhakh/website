@@ -33,9 +33,34 @@ var App = React.createClass({
         'weather': this.weather,
         'ayy': this.ayylmao,
         'contact': this.contactMe,
-        'cena': this.cena
+        'cena': this.cena,
+        'loading': this.loading
       }
     });
+  },
+  loading: function(){
+    document.getElementsByTagName('input')[0].disabled = true;
+    document.getElementsByClassName('prompt')[0].textContent = '';
+    console.log(this.refs['term']);
+    setTimeout(function(){
+      this.addHistory('loading...')
+    }.bind(this),300)
+    setTimeout(function(){
+      this.addHistory('installing local runtime')
+    }.bind(this),300)
+    setTimeout(function(){
+      this.addHistory('configuring graphics')
+    }.bind(this),2000)
+    setTimeout(function(){
+      this.addHistory('installing dependencies...')
+    }.bind(this),2500)
+    setTimeout(function(){
+      this.addHistory('complete!')
+    }.bind(this),3500)
+    setTimeout(function(){
+      document.getElementsByTagName('input')[0].disabled = false;
+    document.getElementsByClassName('prompt')[0].textContent = '$ ';
+    }.bind(this),3900)
   },
   cena: function(){
     var newHeight = '';
@@ -303,6 +328,6 @@ var App = React.createClass({
   }
 });
 
-// render it dawg!
+
 var AppComponent = React.createFactory(App);
 React.render(AppComponent(), document.getElementById('app'));
