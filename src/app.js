@@ -1,7 +1,7 @@
 var React = require('react');
 var weather = require('weather');
 var request = require('request');
-
+var source = [];
  
 var App = React.createClass({
   getInitialState: function() {
@@ -40,7 +40,6 @@ var App = React.createClass({
   loading: function(){
     document.getElementsByTagName('input')[0].disabled = true;
     document.getElementsByClassName('prompt')[0].textContent = '';
-    console.log(this.refs['term']);
     setTimeout(function(){
       this.addHistory('loading...')
     }.bind(this),200)
@@ -88,7 +87,7 @@ var App = React.createClass({
         document.getElementById('terminal').style.transition = 'all 5s';
         
         var initialWidth = document.getElementById('terminal').offsetWidth;
-        console.log('initial width is ' +  initialWidth);
+        
         document.getElementById('terminal').style.width = initialWidth + 'px';
         
 
@@ -102,7 +101,7 @@ var App = React.createClass({
         
         
         document.getElementById('terminal').addEventListener('transitionend', function(){ 
-          console.log('terminal end transition');
+          
           document.getElementById('terminal').style.transition = 'all 0s';
         }, false);
       }
@@ -111,15 +110,14 @@ var App = React.createClass({
     });
     if(this.state.cenaRun === false){
       this.setState({cenaRun: true});
-      console.log(document.getElementById('terminal').style.left);
-      //370 + 
+      
+      
       var initialTop = document.getElementById('terminal').offsetTop + 'px';
       document.getElementById('terminal').style.top = initialTop;
 
       
       var terminalLeft = document.getElementById('terminal').style.left;
-      //var marginOffset = window.getComputedStyle(document.getElementById('main')).marginLeft
-      //marginOffset = parseInt(marginOffset.substring(0, marginOffset.length-2));
+      
       main = document.getElementById('main')
       mw = parseInt(window.getComputedStyle(main).width, 10)
       pw = parseInt(window.getComputedStyle(main.parentElement).width, 10)
@@ -141,11 +139,10 @@ var App = React.createClass({
 
       var context = new AudioContext();
         
-      var source
       
-      source = context.createBufferSource();
       var request = new XMLHttpRequest();
 
+      source = context.createBufferSource();
       request.open('GET', './src/cena.mp3', true);
       request.responseType = 'arraybuffer';
       request.onload = function(){
@@ -158,7 +155,12 @@ var App = React.createClass({
       }
 
       request.send();
+      
       source.start(0);
+      setTimeout(function(){
+        source.stop()
+        this.setState({'cenaRun' : false});
+      }.bind(this), 15500);
     }
 
   }
