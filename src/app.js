@@ -244,9 +244,15 @@ var App = React.createClass({
   weatherRequest: function(error, response, body){
       if (!error && response.statusCode == 200) {
         var content = JSON.parse(body);
-        this.state.temp = content.query.results.channel.item.condition.temp; 
-        this.state.cond = content.query.results.channel.item.condition.text;
-        this.state.location = content.query.results.channel.item.title;
+        this.setState({
+          temp: content.query.results.channel.item.condition.temp,
+          cond: content.query.results.channel.item.condition.text,
+          location: content.query.results.channel.item.title
+        });
+        console.log('weather update')
+        // this.state.temp = content.query.results.channel.item.condition.temp; 
+        // this.state.cond = content.query.results.channel.item.condition.text;
+        // this.state.location = content.query.results.channel.item.title;
         //i need this -> content.query.results.channel.item;
       }
   },
