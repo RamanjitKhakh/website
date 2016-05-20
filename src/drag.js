@@ -10,8 +10,8 @@ var func = function() {
 		var self = this;
 
 		var move = function(event){
-			//console.log(event.type);
-			//console.log(event.currentTarget);
+
+			event.preventDefault();
 			self.element = document.getElementById('terminal');
 			var originLeft = self.element.getBoundingClientRect().left
 			var originTop = self.element.getBoundingClientRect().top;
@@ -21,6 +21,7 @@ var func = function() {
 
 			var initialWidth = document.getElementById('terminal').offsetWidth;
 			function dragMe(event){
+				
 				self.element.style.width = initialWidth + 'px';
 				self.element.style.position = 'absolute';
 				self.element.style.left = (originLeft + event.clientX - mouseDownX) + "px";
@@ -30,6 +31,7 @@ var func = function() {
 			}
 
 			function dropMe(event){
+				
 				document.removeEventListener('mousemove', dragMe, true);
 				document.removeEventListener('mouseup', dropMe, true);
 				event.stopPropagation();
