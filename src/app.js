@@ -2,7 +2,7 @@ var React = require('react');
 var weather = require('weather');
 var request = require('request');
 var source = [];
- 
+
 var App = React.createClass({
   getInitialState: function() {
       return {
@@ -79,45 +79,45 @@ var App = React.createClass({
     document.getElementById('theCena').addEventListener('transitionend',function(e){
       if(eventStart){
         eventStart = false;
-        
+
         var initialWidth = document.getElementById('terminal').offsetWidth;
         var initialHeight = document.getElementById('terminal').offsetHeight;
-        
+
         document.getElementById('theCena').style.bottom = '-' + window.innerHeight + 'px';
         document.getElementById('terminal').style.transition = 'all 5s';
-        
+
         var initialWidth = document.getElementById('terminal').offsetWidth;
-        
+
         document.getElementById('terminal').style.width = initialWidth + 'px';
-        
+
 
         document.getElementById('terminal').style.position = 'absolute';
-        
+
 
         document.getElementById('terminal').offsetWidth = initialWidth + 'px';
         var adjustHeight = parseInt(newHeight.substring(0, newHeight.length-2));
-        
+
         document.getElementById('terminal').style.top =  document.getElementById('terminal').style.top = window.innerHeight - 40 + 'px';
-        
-        
-        document.getElementById('terminal').addEventListener('transitionend', function(){ 
-          
+
+
+        document.getElementById('terminal').addEventListener('transitionend', function(){
+
           document.getElementById('terminal').style.transition = 'all 0s';
         }, false);
       }
-      
+
 
     });
     if(this.state.cenaRun === false){
       this.setState({cenaRun: true});
-      
-      
+
+
       var initialTop = document.getElementById('terminal').offsetTop + 'px';
       document.getElementById('terminal').style.top = initialTop;
 
-      
+
       var terminalLeft = document.getElementById('terminal').style.left;
-      
+
       main = document.getElementById('main')
       mw = parseInt(window.getComputedStyle(main).width, 10)
       pw = parseInt(window.getComputedStyle(main.parentElement).width, 10)
@@ -131,15 +131,15 @@ var App = React.createClass({
         terminalLeft = parseInt(terminalLeft.substring(0, terminalLeft.length-2));
         terminalLeft += marginOffset;
       }
-      document.getElementById('theCena').style.left =  terminalLeft + 'px';    
-      newHeight = (window.innerHeight - document.getElementById('terminal').offsetTop - 260) + 'px'; 
+      document.getElementById('theCena').style.left =  terminalLeft + 'px';
+      newHeight = (window.innerHeight - document.getElementById('terminal').offsetTop - 260) + 'px';
       document.getElementById('theCena').style.bottom = (window.innerHeight - document.getElementById('terminal').offsetTop - 270) + 'px';
 
-      
+
 
       var context = new AudioContext();
-        
-      
+
+
       var request = new XMLHttpRequest();
 
       source = context.createBufferSource();
@@ -155,7 +155,7 @@ var App = React.createClass({
       }
 
       request.send();
-      
+
       source.start(0);
       setTimeout(function(){
         source.stop()
@@ -181,13 +181,13 @@ var App = React.createClass({
       this.addHistory("Type `help` to view all possible commands");
   },
   ayylmao: function() {
-    document.getElementById('ayy').style.bottom = 0; 
+    document.getElementById('ayy').style.bottom = 0;
   },
-  weather: function(arg){   
+  weather: function(arg){
     this.addHistory(this.state.location);
     this.addHistory('current temp: ' + this.state.temp + '°F');
     this.addHistory('It is ' + this.state.cond + '.');
-  
+
   },
   catFile: function(arg) {
       if (arg === "README.md") {
@@ -196,7 +196,7 @@ var App = React.createClass({
                           "I started programming in 10th grade of High school and I remember looking at System.out.println statement " +
                           "thinking to myself, \"this isn\'t enough...\", so from that moment on, I decided to pursue a career in computing " +
                           "always looking for more. I enjoy working on low level programming using C and x86 asm. I am always fascinated in " +
-                          "operating systems and video games development (not so much video games, weird right?). " + 
+                          "operating systems and video games development (not so much video games, weird right?). " +
                           "I like building and tinkering with things and I will go to various Hackathons with kids from my School, feel free to say Hi if you see me. " +
                           "Please Check out my Github account for things I am working on. I hope you enjoyed my cave " +
                           "of the internet. Have a look around!");
@@ -235,12 +235,14 @@ var App = React.createClass({
       }
     };
     //setTimeout(this.showWelcomeMsg(), 400);
-    
+
     request(options, this.weatherRequest)
 
 
   },
-
+  componentWillMount: function(){
+    console.log("%cTryna find some secrets?", "background: black; color: lime; font-size: x-large");
+  },
   weatherRequest: function(error, response, body){
       if (!error && response.statusCode == 200) {
         var content = JSON.parse(body);
@@ -249,16 +251,10 @@ var App = React.createClass({
           cond: content.query.results.channel.item.condition.text,
           location: content.query.results.channel.item.title
         });
-        console.log('weather update')
-        // this.state.temp = content.query.results.channel.item.condition.temp; 
-        // this.state.cond = content.query.results.channel.item.condition.text;
-        // this.state.location = content.query.results.channel.item.title;
-        //i need this -> content.query.results.channel.item;
       }
   },
   componentDidUpdate: function() {
       var el = React.findDOMNode(this);
-      //var container = document.getElementsByClassName('container')[0];
       var container = document.getElementById("main");
       container.scrollTop = el.scrollHeight;
   },
@@ -274,7 +270,7 @@ var App = React.createClass({
               'promptHistory' : promptHistory,
               'index' : index
             });
-            
+
 
             var input_array = input_text.split(' ');
             var input = input_array[0];
@@ -341,7 +337,7 @@ var App = React.createClass({
         <div className='input-area' onClick={this.handleClick}>
           {output}
           <p>
-            <span className="prompt">{this.state.prompt}</span> 
+            <span className="prompt">{this.state.prompt}</span>
             <input type="text" onKeyDown={this.handleInput} ref="term" />
           </p>
         </div>
